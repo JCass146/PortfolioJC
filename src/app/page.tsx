@@ -12,6 +12,11 @@ import { Project } from '@/lib/projects';
 
 export default function Home() {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     // Load projects from JSON
@@ -39,10 +44,11 @@ export default function Home() {
         <motion.section
           className="min-h-screen pt-32 pb-20 container-max flex flex-col justify-center"
           variants={staggerContainer}
-          initial="initial"
-          animate="animate"
+          initial={isClient ? "initial" : "animate"}
+          animate={isClient ? "animate" : "animate"}
+          style={{ opacity: 1 }}
         >
-          <motion.div variants={fadeInUp}>
+          <motion.div variants={fadeInUp} initial={isClient ? "initial" : "animate"} animate={isClient ? "animate" : "animate"}>
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
               <span className="gradient-text">Creative Engineering</span>
               <br />
@@ -52,12 +58,14 @@ export default function Home() {
 
           <motion.p
             variants={fadeInUp}
+            initial={isClient ? "initial" : "animate"}
+            animate={isClient ? "animate" : "animate"}
             className="text-lg text-gray-300 max-w-2xl mb-8"
           >
             I design computational solutions and optimize systems at the intersection of astrophysics and mechanical engineering. Explore my research, projects, and creative explorations.
           </motion.p>
 
-          <motion.div variants={fadeInUp} className="flex gap-6">
+          <motion.div variants={fadeInUp} initial={isClient ? "initial" : "animate"} animate={isClient ? "animate" : "animate"} className="flex gap-6">
             <Link
               href="/projects"
               className="px-8 py-3 bg-cyan-500 text-dark font-semibold rounded-lg hover:bg-cyan-400 transition-colors"

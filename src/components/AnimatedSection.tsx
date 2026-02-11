@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { fadeInUp } from '@/lib/animations';
+import { useState, useEffect } from 'react';
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
@@ -21,17 +21,32 @@ export function AnimatedSection({
     threshold: 0.1,
     triggerOnce: true,
   });
+  
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const variants = {
     fadeInUp: {
-      initial: { opacity: 0, y: 20 },
+      initial: { opacity: 1, y: 0 },
       animate: { opacity: 1, y: 0 },
     },
     fadeIn: {
-      initial: { opacity: 0 },
+      initial: { opacity: 1 },
       animate: { opacity: 1 },
     },
   };
+
+  // If not on client, render visible immediately
+  if (!isClient) {
+    return (
+      <div className={className}>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <motion.div
