@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { AnimatedSection } from '@/components/AnimatedSection';
+import { ProjectSection } from '@/components/ProjectSection';
+import { ProjectSectionImage } from '@/components/ProjectSectionImage';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 import { Project } from '@/lib/projects';
 import { formatDate, getDuration } from '@/lib/utils';
@@ -84,11 +86,50 @@ export default function ProjectDetailClient({
             </div>
           </motion.div>
 
-          {/* Full Description */}
-          <motion.div variants={fadeInUp} className="mb-16 max-w-3xl">
-            <h2 className="text-2xl font-bold mb-4">Overview</h2>
-            <p className="text-gray-300 leading-relaxed mb-6">{project.fullDescription}</p>
-          </motion.div>
+          {/* Full Description / Narrative Sections */}
+          {project.sections && project.sections.length > 0 ? (
+            // Scrollytelling Layout
+            <div className="mb-32">
+              <motion.div variants={fadeInUp} className="mb-20 max-w-3xl">
+                <h2 className="text-2xl font-bold mb-4">Overview</h2>
+                <p className="text-gray-300 leading-relaxed mb-6">{project.fullDescription}</p>
+              </motion.div>
+
+              <div className="mb-24">
+                <motion.div variants={fadeInUp} className="mb-16">
+                  <h2 className="text-3xl md:text-4xl font-bold mb-2">Project Narrative</h2>
+                  <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-transparent" />
+                </motion.div>
+
+                <div className="space-y-20">
+                  {project.sections.map((section, idx) => (
+                    <ProjectSection
+                      key={idx}
+                      title={section.title}
+                      insight={section.insight}
+                      description={section.description}
+                      layout={section.layout || (idx % 2 === 0 ? 'image-right' : 'image-left')}
+                      delay={idx * 0.1}
+                    >
+                      {section.media && (
+                        <ProjectSectionImage
+                          src={section.media}
+                          alt={section.title}
+                          caption={section.caption}
+                        />
+                      )}
+                    </ProjectSection>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            // Fallback: Original Layout
+            <motion.div variants={fadeInUp} className="mb-16 max-w-3xl">
+              <h2 className="text-2xl font-bold mb-4">Overview</h2>
+              <p className="text-gray-300 leading-relaxed mb-6">{project.fullDescription}</p>
+            </motion.div>
+          )}
 
           {/* Technologies */}
           <motion.div variants={fadeInUp} className="mb-16">

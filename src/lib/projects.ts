@@ -1,3 +1,12 @@
+export interface ProjectSection {
+  title: string;
+  insight: string;
+  description: string;
+  media?: string;
+  caption?: string;
+  layout?: 'image-left' | 'image-right';
+}
+
 export interface Project {
   id: string;
   slug: string;
@@ -21,6 +30,7 @@ export interface Project {
   };
   featured: boolean;
   order: number;
+  sections?: ProjectSection[];
 }
 
 export interface ProjectsData {

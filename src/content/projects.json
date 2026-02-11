@@ -22,7 +22,30 @@
         "end": "2026-02"
       },
       "featured": true,
-      "order": 1
+      "order": 1,
+      "sections": [
+        {
+          "title": "The Challenge",
+          "insight": "Two-body gravity assists plateau at 2√2 of the hyperbolic excess velocity",
+          "description": "Traditional planetary gravitational assists are limited by the topology of the hyperbolic trajectory. No matter how perfectly aligned, a two-body encounter can only deflect a craft by a finite maximum angle. When the third massive body enters the interaction, the phase-space topology becomes chaotic—and new pathways emerge.",
+          "media": "/projects/three-body-gravitational-slingshots/phase_space_diagram.png",
+          "layout": "image-right"
+        },
+        {
+          "title": "The Approach",
+          "insight": "Custom symplectic integrator + batch MCMC parameter refinement",
+          "description": "I built a high-order symplectic N-body solver to model thousands of hyperbolic encounters without introducing artificial dissipation. Rather than optimize globally (which fails in chaos), I batch-inject initial conditions across large parameter grids, filter for interesting dynamical outcomes, then use Markov-chain refinement to converge on rare, high-gain configurations. This transforms a hard optimization problem into instance-finding in a chaotic attractor.",
+          "media": "/projects/three-body-gravitational-slingshots/parameter_sweep_grid.png",
+          "layout": "image-left"
+        },
+        {
+          "title": "Key Results",
+          "insight": "Velocity amplification 3–15× greater than two-body baseline",
+          "description": "In certain star–planet geometries, the three-body scattering produces hyperbolic excess velocities that exceed matched two-body flybys by orders of magnitude. The mechanism: the third body shifts the reference frame dynamically, allowing the probe to harvest orbital energy from the wider binary. Analytic comparisons with restricted three-body theory validate the numerical results.",
+          "media": "/projects/three-body-gravitational-slingshots/energy_gain_histogram.png",
+          "layout": "image-right"
+        }
+      ]
     },
     {
       "id": "regen-liquid-rocket",
@@ -46,7 +69,32 @@
         "end": "2026-02"
       },
       "featured": true,
-      "order": 2
+      "order": 2,
+      "sections": [
+        {
+          "title": "Design Constraints",
+          "insight": "Sheet metal + TIG weld, no CNC access—reframe for manufacturability",
+          "description": "Rather than design optimally then search for a machine, the project inverted the workflow: design for what we can actually build. This meant embracing sheet-metal and manual welding, laser cutting for precision, and intentionally forgiving tolerances on interfaces. The chamber comprises laser-cut barrel sections and formed domes, assembled and TIG-welded by hand. No 5-axis milling. No additive manufacturing.",
+          "media": "/projects/regenerative-liquid-rocket-engine/fabrication_steps.png",
+          "layout": "image-right"
+        },
+        {
+          "title": "Thermal Modeling",
+          "insight": "1D transient heat conduction coupling combustion gases to coolant channels",
+          "description": "Heat transfer in the chamber occurs across three layers: (1) hypersonic combustion gas boundary layer, (2) stainless steel wall with anisotropic conduction, (3) turbulent ethanol coolant in spiral channels. I solved the coupled PDE using finite-difference discretization with material-dependent thermal properties and temperature-dependent viscosity. The model predicts hot-side wall temperature and coolant outlet state, constraining channel spacing and wall thickness.",
+          "media": "/projects/regenerative-liquid-rocket-engine/thermal_profile_slice.png",
+          "caption": "Radial temperature profile at chamber midplane during steady-state operation",
+          "layout": "image-left"
+        },
+        {
+          "title": "Test & Validation",
+          "insight": "Hot-fire data correlates within 8% of thermal model predictions",
+          "description": "Static testing on a vertical thrust stand with embedded thermocouples and real-time DAQ validated the thermal predictions. Chamber pressure, thrust, chamber temperature, and coolant temperature were logged at 100 Hz. Post-test analysis showed the steady-state chamber wall temperature agreed with the numerical model within measurement uncertainty, validating the approach and informing duty-cycle margins for flight.",
+          "media": "/projects/regenerative-liquid-rocket-engine/hotfire_temperature_trace.png",
+          "caption": "Temperature traces from static fire test (thermocouples embedded in chamber wall)",
+          "layout": "image-right"
+        }
+      ]
     },
     {
       "id": "machining-fundamentals",
